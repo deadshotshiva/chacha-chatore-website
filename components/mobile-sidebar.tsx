@@ -36,7 +36,7 @@ export function MobileSidebar() {
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 md:hidden transition-opacity duration-300"
+          className="fixed inset-0 z-40 bg-black md:hidden transition-opacity duration-300"
           onClick={closeMenu}
           style={{
             animation: 'fadeIn 0.3s ease-out',
