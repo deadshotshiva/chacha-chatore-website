@@ -62,7 +62,7 @@ export function MobileSidebar() {
         </div>
 
         {/* Navigation Links with Colored Badges */}
-        <nav className="flex flex-col space-y-0 p-0 pt-4">
+        <nav className="flex flex-col space-y-1 px-2 py-4 overflow-y-auto max-h-[calc(100vh-280px)]">
           {navigationLinks.map((link, index) => {
             const colors = ['#FFD93D', '#00B4D8', '#7B68EE', '#FF6B35', '#52B69A']
             const badgeColor = colors[index % colors.length]
@@ -70,17 +70,23 @@ export function MobileSidebar() {
             return (
               <div
                 key={link.href}
-                className="relative flex items-center group"
+                className="relative flex items-center group px-4 py-2 rounded-lg transition-all duration-300"
                 style={{
-                  animation: isOpen ? `slideIn 0.5s ease-out ${index * 0.1}s both` : 'none',
+                  animation: isOpen ? `slideIn 0.5s ease-out ${index * 0.08}s both` : 'none',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = `${badgeColor}10`
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent'
                 }}
               >
-                {/* Colored Badge */}
+                {/* Colored Badge - positioned properly */}
                 <div
-                  className="absolute -left-6 w-12 h-12 rounded-full flex items-center justify-center text-black font-bold text-sm z-10 transition-all duration-300 group-hover:scale-110"
+                  className="relative w-10 h-10 rounded-full flex items-center justify-center text-black font-bold text-xs flex-shrink-0 transition-all duration-300 group-hover:scale-110"
                   style={{
                     backgroundColor: badgeColor,
-                    boxShadow: `0 0 20px ${badgeColor}40`,
+                    boxShadow: `0 0 15px ${badgeColor}50`,
                   }}
                 >
                   {String(index).padStart(2, '0')}
@@ -90,37 +96,29 @@ export function MobileSidebar() {
                 <Link
                   href={link.href}
                   onClick={closeMenu}
-                  className="flex-1 px-6 py-4 text-base font-medium text-white hover:text-white transition-all duration-300 relative overflow-hidden group"
-                  style={{
-                    borderLeft: `3px solid transparent`,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderLeftColor = badgeColor
-                    e.currentTarget.style.backgroundColor = `${badgeColor}15`
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderLeftColor = 'transparent'
-                    e.currentTarget.style.backgroundColor = 'transparent'
-                  }}
+                  className="flex-1 ml-4 py-2 text-sm font-medium text-white hover:text-white transition-colors duration-300"
                 >
-                  <span className="relative">{link.label}</span>
+                  {link.label}
                 </Link>
+
+                {/* Right accent bar */}
+                <div className="w-1 h-6 rounded-full bg-gradient-to-b from-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundImage: `linear-gradient(to bottom, ${badgeColor}, ${badgeColor})` }} />
               </div>
             )
           })}
         </nav>
 
         {/* Divider */}
-        <div className="mx-6 h-px bg-gradient-to-r from-transparent via-[#7B68EE]/20 to-transparent" />
+        <div className="mx-4 h-px bg-gradient-to-r from-transparent via-[#7B68EE]/20 to-transparent" />
 
         {/* CTA Button and Footer */}
-        <div className="flex flex-col gap-4 p-6">
+        <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-4 p-6 bg-gradient-to-t from-black to-black/50">
           <Link
             href="/contact"
             onClick={closeMenu}
             className="block w-full rounded-lg bg-gradient-to-r from-[#FF6B35] to-[#7B68EE] px-4 py-3 text-center font-medium text-white hover:shadow-lg hover:shadow-[#FF6B35]/50 transition-all duration-300 transform hover:scale-105"
             style={{
-              animation: isOpen ? 'slideUp 0.5s ease-out 0.3s both' : 'none',
+              animation: isOpen ? 'slideUp 0.5s ease-out 0.4s both' : 'none',
             }}
           >
             Get Started
