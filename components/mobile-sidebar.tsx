@@ -46,33 +46,50 @@ export function MobileSidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed left-0 top-16 bottom-0 w-64 bg-gradient-to-b from-background via-background to-[#1a1a1a] border-r border-[#7B68EE]/30 shadow-xl z-40 md:hidden transform transition-transform duration-300 ease-out ${
+        className={`fixed left-0 top-16 bottom-0 w-72 bg-gradient-to-br from-[#0f0f0f] via-[#1a1a1a] to-[#0f0f0f] border-r border-[#7B68EE]/20 shadow-2xl z-40 md:hidden transform transition-transform duration-300 ease-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         style={{
           willChange: 'transform',
         }}
       >
+        {/* Decorative gradient line */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF6B35] via-[#FFD93D] via-[#00B4D8] to-[#7B68EE]" />
+
+        {/* Header section */}
+        <div className="px-6 py-6 border-b border-[#7B68EE]/10">
+          <h3 className="text-sm font-semibold text-[#7B68EE] uppercase tracking-wider">Navigation</h3>
+        </div>
+
         {/* Navigation Links */}
-        <nav className="flex flex-col space-y-1 p-4">
+        <nav className="flex flex-col space-y-2 p-6">
           {navigationLinks.map((link, index) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={closeMenu}
-              className="px-4 py-3 rounded-lg text-base font-medium text-foreground hover:bg-[#FF6B35]/10 hover:text-[#FF6B35] transition-all duration-300 relative group"
+              className="px-4 py-3 rounded-lg text-base font-medium text-foreground hover:bg-[#FF6B35]/20 hover:text-[#FF6B35] transition-all duration-300 relative group overflow-hidden"
               style={{
-                animation: isOpen ? `slideIn 0.5s ease-out ${index * 0.05}s both` : 'none',
+                animation: isOpen ? `slideIn 0.5s ease-out ${index * 0.08}s both` : 'none',
               }}
             >
-              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-full bg-gradient-to-b from-[#FF6B35] to-[#7B68EE] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              {link.label}
+              {/* Animated background */}
+              <span className="absolute inset-0 bg-gradient-to-r from-[#FF6B35]/0 via-[#FF6B35]/10 to-[#FF6B35]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              {/* Accent bar */}
+              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-full bg-gradient-to-b from-[#FF6B35] to-[#7B68EE] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              {/* Text */}
+              <span className="relative">{link.label}</span>
             </Link>
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <div className="absolute bottom-6 left-4 right-4">
+        {/* Divider */}
+        <div className="mx-6 h-px bg-gradient-to-r from-transparent via-[#7B68EE]/20 to-transparent" />
+
+        {/* CTA Button and Footer */}
+        <div className="flex flex-col gap-4 p-6">
           <Link
             href="/contact"
             onClick={closeMenu}
@@ -83,6 +100,12 @@ export function MobileSidebar() {
           >
             Get Started
           </Link>
+
+          {/* Footer info */}
+          <div className="text-center text-xs text-muted-foreground">
+            <p>Ready to grow?</p>
+            <p className="text-[#FF6B35] font-semibold mt-1">Let's talk</p>
+          </div>
         </div>
       </div>
 
