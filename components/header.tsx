@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { navigationLinks } from '@/lib/seo'
+import { MobileSidebar } from './mobile-sidebar'
 
 export function Header() {
   return (
@@ -15,7 +16,7 @@ export function Header() {
           <span className="font-semibold text-foreground hidden sm:inline bg-gradient-to-r from-[#FF6B35] to-[#7B68EE] bg-clip-text text-transparent">CC Production</span>
         </Link>
 
-        {/* Navigation */}
+        {/* Desktop Navigation */}
         <ul className="hidden md:flex items-center space-x-8">
           {navigationLinks.map((link, index) => (
             <li key={link.href} style={{ animationDelay: `${index * 0.05}s` }}>
@@ -29,13 +30,16 @@ export function Header() {
           ))}
         </ul>
 
-        {/* CTA Button */}
+        {/* Desktop CTA Button */}
         <Link
           href="/contact"
-          className="rounded-lg bg-gradient-to-r from-[#FF6B35] to-[#7B68EE] px-4 py-2 text-sm font-medium text-white hover:shadow-lg hover:shadow-[#FF6B35]/50 transition-all duration-300 transform hover:scale-105"
+          className="hidden sm:inline-flex rounded-lg bg-gradient-to-r from-[#FF6B35] to-[#7B68EE] px-4 py-2 text-sm font-medium text-white hover:shadow-lg hover:shadow-[#FF6B35]/50 transition-all duration-300 transform hover:scale-105"
         >
           Get Started
         </Link>
+
+        {/* Mobile Sidebar */}
+        <MobileSidebar />
       </nav>
     </header>
   )
