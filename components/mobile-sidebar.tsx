@@ -46,7 +46,7 @@ export function MobileSidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed left-0 top-16 bottom-0 w-72 bg-gradient-to-br from-[#0f0f0f] via-[#1a1a1a] to-[#0f0f0f] border-r border-[#7B68EE]/20 shadow-2xl z-40 md:hidden transform transition-transform duration-300 ease-out ${
+        className={`fixed left-0 top-16 bottom-0 w-72 bg-black border-r border-[#7B68EE]/30 shadow-2xl z-40 md:hidden transform transition-transform duration-300 ease-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         style={{
@@ -54,35 +54,60 @@ export function MobileSidebar() {
         }}
       >
         {/* Decorative gradient line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF6B35] via-[#FFD93D] via-[#00B4D8] to-[#7B68EE]" />
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FF6B35] via-[#FFD93D] via-[#00B4D8] to-[#7B68EE]" />
 
         {/* Header section */}
-        <div className="px-6 py-6 border-b border-[#7B68EE]/10">
+        <div className="px-6 py-6 border-b border-[#7B68EE]/20">
           <h3 className="text-sm font-semibold text-[#7B68EE] uppercase tracking-wider">Navigation</h3>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="flex flex-col space-y-2 p-6">
-          {navigationLinks.map((link, index) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={closeMenu}
-              className="px-4 py-3 rounded-lg text-base font-medium text-foreground hover:bg-[#FF6B35]/20 hover:text-[#FF6B35] transition-all duration-300 relative group overflow-hidden"
-              style={{
-                animation: isOpen ? `slideIn 0.5s ease-out ${index * 0.08}s both` : 'none',
-              }}
-            >
-              {/* Animated background */}
-              <span className="absolute inset-0 bg-gradient-to-r from-[#FF6B35]/0 via-[#FF6B35]/10 to-[#FF6B35]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
-              {/* Accent bar */}
-              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-full bg-gradient-to-b from-[#FF6B35] to-[#7B68EE] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
-              {/* Text */}
-              <span className="relative">{link.label}</span>
-            </Link>
-          ))}
+        {/* Navigation Links with Colored Badges */}
+        <nav className="flex flex-col space-y-0 p-0 pt-4">
+          {navigationLinks.map((link, index) => {
+            const colors = ['#FFD93D', '#00B4D8', '#7B68EE', '#FF6B35', '#52B69A']
+            const badgeColor = colors[index % colors.length]
+            
+            return (
+              <div
+                key={link.href}
+                className="relative flex items-center group"
+                style={{
+                  animation: isOpen ? `slideIn 0.5s ease-out ${index * 0.1}s both` : 'none',
+                }}
+              >
+                {/* Colored Badge */}
+                <div
+                  className="absolute -left-6 w-12 h-12 rounded-full flex items-center justify-center text-black font-bold text-sm z-10 transition-all duration-300 group-hover:scale-110"
+                  style={{
+                    backgroundColor: badgeColor,
+                    boxShadow: `0 0 20px ${badgeColor}40`,
+                  }}
+                >
+                  {String(index).padStart(2, '0')}
+                </div>
+
+                {/* Link */}
+                <Link
+                  href={link.href}
+                  onClick={closeMenu}
+                  className="flex-1 px-6 py-4 text-base font-medium text-white hover:text-white transition-all duration-300 relative overflow-hidden group"
+                  style={{
+                    borderLeft: `3px solid transparent`,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderLeftColor = badgeColor
+                    e.currentTarget.style.backgroundColor = `${badgeColor}15`
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderLeftColor = 'transparent'
+                    e.currentTarget.style.backgroundColor = 'transparent'
+                  }}
+                >
+                  <span className="relative">{link.label}</span>
+                </Link>
+              </div>
+            )
+          })}
         </nav>
 
         {/* Divider */}
